@@ -1,0 +1,28 @@
+def is_there_space_in_wagons(wagons):
+    for w in wagons:
+        if w < 4:
+            return True
+    return False
+
+
+max_people_in_wagon = 4
+waiting_people = int(input())#how much people are waiting to get on the train
+wagons_state = [int(el) for el in input().split()]
+for wagon in range(len(wagons_state)):
+    while wagons_state[wagon] < 4:
+        if waiting_people == 0:
+            break
+        if wagons_state[wagon] < 4 and waiting_people > 0:
+            wagons_state[wagon] += 1
+            waiting_people -= 1
+    if waiting_people == 0:
+        break
+
+if waiting_people > 0:
+    print(f"There isn't enough space! {waiting_people} people in a queue!\n"
+          f"{' '.join(str(el) for el in wagons_state)}")
+elif is_there_space_in_wagons(wagons_state):
+    print(f"The lift has empty spots!\n"
+          f"{' '.join(str(el) for el in wagons_state)}")
+else:
+    print(*wagons_state)
